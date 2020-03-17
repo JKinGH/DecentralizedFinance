@@ -117,7 +117,7 @@ contract DeFi is Token{
 		//要求赎回ETH的数量必须 <= Token余额
 		require(value <= Token.balances[msg.sender],"Not enough ETH to redeem.");
 		//赎回操作
-		// 1. 在合约转出ETH到用户地址之前将待发金额清零，更新用户Token余额和Token总量，来防止重入（re-entrancy）攻击
+		// 1. 在合约转出ETH到用户地址之前将待发金额减少，更新用户Token余额和Token总量，来防止重入（re-entrancy）攻击
 		Token.balances[msg.sender] -= value;
 		Token.totalSupply -=  value;
 		// 2. 从合约里转ETH到对应用户
